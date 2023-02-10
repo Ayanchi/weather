@@ -1,0 +1,24 @@
+.allWeeks{
+    display: flex;
+    margin-top: 50px;
+    overflow: scroll;
+    border: 1px solid black;
+    height: 100px;
+    width: 300px;
+
+}
+.week{
+    border-radius: 10px;
+    background-color: antiquewhite;
+    margin: 10px;
+    width: 100px;
+    height: 60px;
+    text-align: center;
+    overflow: hidden;
+    padding: 5px;
+
+}
+body{
+    margin: 0px;
+    padding: 0px;
+}
