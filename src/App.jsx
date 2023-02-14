@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import React from 'react'
 import Header from './Header'
+import axios from 'axios'
+
 
 
 
@@ -11,34 +13,29 @@ const api = {
 }
 
 function App(props) {
+  
 
-  let state =  {
-    days: []
-  }
   const [weather, setWeather] = useState([])
-
-  let city = ''
+  const [city, setCeety] = useState('')
 
 
   async function getWeather(){
     let responce = await fetch(`${api.base}forecast?q=${city}&units=metric&appid=${api.key}`)
     let data = await responce.json()  
     const dailyData = data.list.filter(reading => reading.dt_txt.includes("12:00:00"))
-    setWeather({days: dailyData})
-    console.log(dailyData)
-    console.log(data)
+    setWeather({days: dailyData, city: data?.city?.name})
   }
 
   function setCity(e) {
-    city = e.target.value
+    setCeety(e.target.value)
   }
 
   useEffect(() => {
 
   }, [setWeather])
 
-  function formatCards() {
-    return state.days.map((day, index) => <Header day={day} key={index}/>)
+  function formatCards(days = []) {
+    return <Header days = {days}/>
   }
   
   return (
@@ -53,12 +50,12 @@ function App(props) {
       </div>
       <div className="revue">
         <div className="city">
-          {props.weather?.main?.temp}
+          {weather?.city}
         </div>
         <div className="degree">
         </div>
       </div>
-      {formatCards()}
+      {formatCards(weather.days)}
     </div>
   )
 }
